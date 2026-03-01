@@ -1,24 +1,30 @@
-import { useEvents } from "../../../context/EventContext";
+import Card from "../../../components/ui/Card";
+import CountdownTimer from "../../../components/common/CountdownTimer";
+import useEvents from "../../../hooks/useEvents";
+import { Link } from "react-router-dom";
 
-const AllEvents = () => {
+export default function AllEvents() {
   const { events } = useEvents();
 
   return (
-    <>
-      <h2 className="text-2xl font-bold text-primary mb-6">
-        All Events
-      </h2>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">All Events</h1>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-3 gap-4">
         {events.map((event) => (
-          <div key={event.id} className="bg-white p-4 shadow rounded">
-            <h3>{event.title}</h3>
-            <p className="text-gray-500">{event.type}</p>
-          </div>
+          <Card key={event.id}>
+            <h2 className="font-bold text-lg">{event.title}</h2>
+            <p className="text-sm capitalize">{event.type}</p>
+            <CountdownTimer deadline={event.deadline} />
+            <Link
+              to={`/student/events/${event.id}`}
+              className="block mt-2 text-indigo-600"
+            >
+              View Details →
+            </Link>
+          </Card>
         ))}
       </div>
-    </>
+    </div>
   );
-};
-
-export default AllEvents;
+}

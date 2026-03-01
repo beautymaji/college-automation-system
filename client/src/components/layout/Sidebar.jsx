@@ -1,28 +1,28 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-const Sidebar = () => {
+export default function Sidebar() {
   const { user } = useAuth();
 
   return (
-    <div className="w-64 bg-primary text-white p-6">
-      <h2 className="text-xl font-bold mb-8">Campus Portal</h2>
+    <div className="w-64 bg-white shadow-lg p-4">
+      <h2 className="font-bold text-lg mb-4 capitalize">{user.role}</h2>
 
-      {user?.role === "student" && (
-        <>
-          <Link to="/student">Dashboard</Link>
-          <Link to="/student/events" className="block mt-3">Events</Link>
-        </>
+      {user.role === "student" && (
+        <NavLink to="/student" className="block mb-2 text-blue-600">
+          Dashboard
+        </NavLink>
       )}
-
-      {user?.role === "admin" && (
-        <>
-          <Link to="/admin">Dashboard</Link>
-          <Link to="/admin/create" className="block mt-3">Create Event</Link>
-        </>
+      {user.role === "faculty" && (
+        <NavLink to="/faculty" className="block mb-2 text-green-600">
+          Dashboard
+        </NavLink>
+      )}
+      {user.role === "admin" && (
+        <NavLink to="/admin" className="block mb-2 text-purple-600">
+          Dashboard
+        </NavLink>
       )}
     </div>
   );
-};
-
-export default Sidebar;
+}

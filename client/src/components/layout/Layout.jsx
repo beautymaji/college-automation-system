@@ -1,18 +1,17 @@
-import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+import { Outlet } from "react-router-dom";
 
-const Layout = ({ children }) => {
+export default function Layout() {
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen bg-gray-100">
       <Sidebar />
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1">
         <Navbar />
-        <div className="p-6 overflow-y-auto">
-          {children}
+        <div className="p-6">
+          <Outlet />
         </div>
       </div>
     </div>
   );
-};
-
-export default Layout;
+}

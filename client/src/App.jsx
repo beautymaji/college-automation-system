@@ -1,43 +1,104 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import { EventProvider } from "./context/EventContext";
+import { Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-
 import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Home from "./pages/shared/Home";
+
 import StudentDashboard from "./pages/student/Dashboard";
-import AllEvents from "./pages/student/events/AllEvents";
+import FacultyDashboard from "./pages/faculty/FacultyDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import CreateEvent from "./pages/admin/CreateEvent";
 
-function App() {
+import Attendance from "./pages/student/Attendance";
+import TakeAttendance from "./pages/faculty/TakeAttendance";
+
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import RoleRoute from "./components/common/RoleRoute";
+
+export default function App() {
   return (
-    <AuthProvider>
-      <EventProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<Login />} />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-            <Route path="/student" element={
-              <Layout><StudentDashboard /></Layout>
-            } />
+      <Route element={<ProtectedRoute />}>
+        <Route element={<Layout />}>
+          <Route
+            path="/student"
+            element={
+              <RoleRoute role="student">
+                <StudentDashboard />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/faculty"
+            element={
+              <RoleRoute role="faculty">
+                <FacultyDashboard />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <RoleRoute role="admin">import { Routes, Route } from "react-router-dom";
+import Layout from "./components/layout/Layout";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Home from "./pages/shared/Home";
 
-            <Route path="/student/events" element={
-              <Layout><AllEvents /></Layout>
-            } />
+import StudentDashboard from "./pages/student/Dashboard";
+import FacultyDashboard from "./pages/faculty/FacultyDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
-            <Route path="/admin" element={
-              <Layout><AdminDashboard /></Layout>
-            } />
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import RoleRoute from "./components/common/RoleRoute";
 
-            <Route path="/admin/create" element={
-              <Layout><CreateEvent /></Layout>
-            } />
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-          </Routes>
-        </BrowserRouter>
-      </EventProvider>
-    </AuthProvider>
+      <Route element={<ProtectedRoute />}>
+        <Route element={<Layout />}>
+          <Route
+            path="/student"
+            element={
+              <RoleRoute role="student">
+                <StudentDashboard />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/faculty"
+            element={
+              <RoleRoute role="faculty">
+                <FacultyDashboard />
+              </RoleRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <RoleRoute role="admin">
+                <AdminDashboard />
+              </RoleRoute>
+            }
+          />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
-
-export default App;
+                <AdminDashboard />
+              </RoleRoute>
+            }
+          />
+        </Route>
+      </Route>
+    </Routes>
+  );
+}
